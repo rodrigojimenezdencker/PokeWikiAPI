@@ -40,8 +40,8 @@ namespace PokeWikiAPI
         public int SpDefense { get; set; }
         [Required]
         public int Speed { get; set; }
-        public int PrevolutionId { get; set; }
-        public int EvolutionId { get; set; }
+        public int? Prevolution { get; set; }
+        public int? Evolution { get; set; }
         [MaxLength(20)]
         public string EvolutionRequirements { get; set; }
     }

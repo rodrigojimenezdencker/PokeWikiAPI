@@ -13,10 +13,8 @@ namespace PokeWikiAPI.Models
         [Required]
         [MaxLength(500)]
         public string Description { get; set; }
-        [Required]
-        public int Power { get; set; }
-        [Required]
-        public int Accuracy { get; set; }
+        public int? Power { get; set; }
+        public int? Accuracy { get; set; }
         [Required]
         public int Quantity { get; set; }
         [Required]
