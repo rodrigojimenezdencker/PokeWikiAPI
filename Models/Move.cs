@@ -19,6 +19,6 @@ namespace PokeWikiAPI.Models
         public int Quantity { get; set; }
         [Required]
         public int TypeId { get; set; }
-        public Type Type { get; set; }
+        public Types Type { get; set; }
     }
 }

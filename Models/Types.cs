@@ -2,7 +2,7 @@
 
 namespace PokeWikiAPI.Models
 {
-    public class Type
+    public class Types
     {
         [Required]
         [Key]

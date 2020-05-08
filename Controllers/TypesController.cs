@@ -11,48 +11,48 @@ namespace PokeWikiAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TypeController : ControllerBase
+    public class TypesController : ControllerBase
     {
         private readonly Context _context;
 
-        public TypeController(Context context)
+        public TypesController(Context context)
         {
             _context = context;
         }
 
-        // GET: api/Type
+        // GET: api/Types
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Type>>> GetType()
+        public async Task<ActionResult<IEnumerable<Types>>> GetTypes()
         {
             return await _context.Type.ToListAsync();
         }
 
-        // GET: api/Type/5
+        // GET: api/Types/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Type>> GetType(int id)
+        public async Task<ActionResult<Types>> GetTypes(int id)
         {
-            var @type = await _context.Type.FindAsync(id);
+            var types = await _context.Type.FindAsync(id);
 
-            if (@type == null)
+            if (types == null)
             {
                 return NotFound();
             }
 
-            return @type;
+            return types;
         }
 
-        // PUT: api/Type/5
+        // PUT: api/Types/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutType(int id, Type @type)
+        public async Task<IActionResult> PutTypes(int id, Types types)
         {
-            if (id != @type.TypeId)
+            if (id != types.TypeId)
             {
                 return BadRequest();
             }
 
-            _context.Entry(@type).State = EntityState.Modified;
+            _context.Entry(types).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace PokeWikiAPI.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!TypeExists(id))
+                if (!TypesExists(id))
                 {
                     return NotFound();
                 }
@@ -73,35 +73,35 @@ namespace PokeWikiAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Type
+        // POST: api/Types
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Type>> PostType(Type @type)
+        public async Task<ActionResult<Types>> PostTypes(Types types)
         {
-            _context.Type.Add(@type);
+            _context.Type.Add(types);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetType", new { id = @type.TypeId }, @type);
+            return CreatedAtAction("GetTypes", new { id = types.TypeId }, types);
         }
 
-        // DELETE: api/Type/5
+        // DELETE: api/Types/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Type>> DeleteType(int id)
+        public async Task<ActionResult<Types>> DeleteTypes(int id)
         {
-            var @type = await _context.Type.FindAsync(id);
-            if (@type == null)
+            var types = await _context.Type.FindAsync(id);
+            if (types == null)
             {
                 return NotFound();
             }
 
-            _context.Type.Remove(@type);
+            _context.Type.Remove(types);
             await _context.SaveChangesAsync();
 
-            return @type;
+            return types;
         }
 
-        private bool TypeExists(int id)
+        private bool TypesExists(int id)
         {
             return _context.Type.Any(e => e.TypeId == id);
         }

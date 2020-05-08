@@ -10,17 +10,17 @@ namespace PokeWikiAPI
         [Required]
         public int NumPokedex { get; set; }
         [Required]
-        [MaxLength(20)]
+        [MaxLength(40)]
         public string Name { get; set; }
         [Required]
         [MaxLength(500)]
         public string Description { get; set; }
         [Required]
-        [MaxLength(20)]
+        [MaxLength(50)]
         public string Ability { get; set; }
-        [MaxLength(20)]
+        [MaxLength(50)]
         public string SecondaryAbility { get; set; }
-        [MaxLength(20)]
+        [MaxLength(50)]
         public string HiddenAbility { get; set; }
         [Required]
         public string Image { get; set; }
@@ -42,7 +42,7 @@ namespace PokeWikiAPI
         public int Speed { get; set; }
         public int? Prevolution { get; set; }
         public int? Evolution { get; set; }
-        [MaxLength(20)]
+        [MaxLength(35)]
         public string EvolutionRequirements { get; set; }
     }
 }

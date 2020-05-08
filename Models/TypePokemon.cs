@@ -12,7 +12,7 @@ namespace PokeWikiAPI.Models
         public Pokemon Pokemon { get; set; }
         [Required]
         public int TypeId { get; set; }
-        public Type Type { get; set; }
+        public Types Type { get; set; }
         [Required]
         public bool Subtype { get; set; }
     }
