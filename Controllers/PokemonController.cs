@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PokeWikiAPI;
 using PokeWikiAPI.Models;
+using PokeWikiAPI.Models.DTO;
 
 namespace PokeWikiAPI.Controllers
 {
@@ -25,7 +27,17 @@ namespace PokeWikiAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Pokemon>>> GetPokemon()
         {
-            return await _context.Pokemon.ToListAsync();
+            var Pokemon = from p in _context.TypePokemon.Include(x => x.Pokemon).Include(y => y.Type)
+                               select new PokemonDTO()
+                               {
+                                   NumPokedex = p.Pokemon.NumPokedex,
+                                   Name = p.Pokemon.Name,
+                                   Fecha = p.Fecha,
+                                   PrecioTotal = p.Lineas.Select(d => d.Precio).Sum()
+                               };
+
+            return Ok(Pokemon);
+            // return await _context.Pokemon.ToListAsync();
         }
 
         // GET: api/Pokemon/5
