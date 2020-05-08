@@ -27,14 +27,15 @@ namespace PokeWikiAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Pokemon>>> GetPokemon()
         {
-            var Pokemon = from p in _context.TypePokemon.Include(x => x.Pokemon).Include(y => y.Type)
-                               select new PokemonDTO()
-                               {
-                                   NumPokedex = p.Pokemon.NumPokedex,
-                                   Name = p.Pokemon.Name,
-                                   Fecha = p.Fecha,
-                                   PrecioTotal = p.Lineas.Select(d => d.Precio).Sum()
-                               };
+            var Pokemon = from p in _context.Pokemon.OrderBy(p => p.NumPokedex)
+                          select new PokemonDTO()
+                          {
+                              NumPokedex = p.NumPokedex,
+                              Name = p.Name,
+                              Description = p.Description,
+                              Type1 = _context.TypePokemon.Include(tp => tp.Type).Where(t => p.PokemonId == t.PokemonId && t.Subtype == false).Select(t => t.Type.Name).FirstOrDefault(),
+                              Type2 = _context.TypePokemon.Include(tp => tp.Type).Where(t => p.PokemonId == t.PokemonId && t.Subtype == true).Select(t => t.Type.Name).FirstOrDefault()
+                          };
 
             return Ok(Pokemon);
             // return await _context.Pokemon.ToListAsync();
