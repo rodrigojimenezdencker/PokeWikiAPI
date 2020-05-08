@@ -33,8 +33,23 @@ namespace PokeWikiAPI.Controllers
                               NumPokedex = p.NumPokedex,
                               Name = p.Name,
                               Description = p.Description,
-                              Type1 = _context.TypePokemon.Include(tp => tp.Type).Where(t => p.PokemonId == t.PokemonId && t.Subtype == false).Select(t => t.Type.Name).FirstOrDefault(),
-                              Type2 = _context.TypePokemon.Include(tp => tp.Type).Where(t => p.PokemonId == t.PokemonId && t.Subtype == true).Select(t => t.Type.Name).FirstOrDefault()
+                              Type1 = _context.TypePokemon.Include(tp => tp.Type).Where(t => p.PokemonId == t.PokemonId && t.Subtype == false).Select(t => t.Type).FirstOrDefault(), 
+                              Type2 = _context.TypePokemon.Include(tp => tp.Type).Where(t => p.PokemonId == t.PokemonId && t.Subtype == true).Select(t => t.Type).FirstOrDefault(),
+                              Ability = p.Ability,
+                              SecondaryAbility = p.SecondaryAbility,
+                              HiddenAbility = p.HiddenAbility,
+                              Image = p.Image,
+                              Weight = p.Weight,
+                              Height = p.Height,
+                              PS = p.PS,
+                              Attack = p.Attack,
+                              Defense = p.Defense,
+                              SpAttack = p.SpAttack,
+                              SpDefense = p.SpDefense,
+                              Speed = p.Speed,
+                              Prevolution = _context.Pokemon.Where(t => t.PokemonId == p.Prevolution).Select(t => t).FirstOrDefault(),
+                              Evolution = _context.Pokemon.Where(t=> t.PokemonId == p.Evolution).Select(t => t).FirstOrDefault(),
+                              EvolutionRequirements = p.EvolutionRequirements
                           };
 
             return Ok(Pokemon);
