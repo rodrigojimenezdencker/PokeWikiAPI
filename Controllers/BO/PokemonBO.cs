@@ -45,11 +45,23 @@ namespace PokeWikiAPI.Controllers.BO
                               SpDefense = p.SpDefense,
                               Speed = p.Speed,
                               Prevolution = _context.Pokemon
-                                .Where(t => t.PokemonId == p.Prevolution)
-                                .Select(t => t).FirstOrDefault(),
+                                .Where(pk => pk.PokemonId == p.Prevolution)
+                                .Select(pk => new PokemonEvolutionsDTO
+                              {
+                                  NumPokedex =  pk.NumPokedex,
+                                  Name = pk.Name,
+                                  Image = pk.Image,
+                                  EvolutionRequirements = pk.EvolutionRequirements
+                              }).FirstOrDefault(),
                               Evolution = _context.Pokemon
-                                .Where(t => t.PokemonId == p.Evolution)
-                                .Select(t => t).FirstOrDefault(),
+                                .Where(pk => pk.PokemonId == p.Evolution)
+                                .Select(pk => new PokemonEvolutionsDTO
+                                {
+                                    NumPokedex = pk.NumPokedex,
+                                    Name = pk.Name,
+                                    Image = pk.Image,
+                                    EvolutionRequirements = pk.EvolutionRequirements
+                              }).FirstOrDefault(),
                               EvolutionRequirements = p.EvolutionRequirements
                           });
         }

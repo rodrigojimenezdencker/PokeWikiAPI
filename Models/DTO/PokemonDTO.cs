@@ -24,8 +24,8 @@ namespace PokeWikiAPI.Models.DTO
         public int SpAttack { get; set; }
         public int SpDefense { get; set; }
         public int Speed { get; set; }
-        public Pokemon Prevolution { get; set; }
-        public Pokemon Evolution { get; set; }
+        public PokemonEvolutionsDTO Prevolution { get; set; }
+        public PokemonEvolutionsDTO Evolution { get; set; }
         public string EvolutionRequirements { get; set; }
     }
 }
