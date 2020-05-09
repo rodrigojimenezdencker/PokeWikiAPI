@@ -25,16 +25,22 @@ namespace PokeWikiAPI.Controllers
 
         // GET: api/Pokemon
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Pokemon>>> GetPokemon()
+        public async Task<ActionResult<IEnumerable<PokemonDTO>>> GetPokemon()
         {
-            var Pokemon = from p in _context.Pokemon.OrderBy(p => p.NumPokedex)
-                          select new PokemonDTO()
+            var PokemonQuery = _context.Pokemon.OrderBy(p => p.NumPokedex)
+                          .Select(p => new PokemonDTO
                           {
                               NumPokedex = p.NumPokedex,
                               Name = p.Name,
                               Description = p.Description,
-                              Type1 = _context.TypePokemon.Include(tp => tp.Type).Where(t => p.PokemonId == t.PokemonId && t.Subtype == false).Select(t => t.Type).FirstOrDefault(), 
-                              Type2 = _context.TypePokemon.Include(tp => tp.Type).Where(t => p.PokemonId == t.PokemonId && t.Subtype == true).Select(t => t.Type).FirstOrDefault(),
+                              Type1 = _context.TypePokemon
+                                .Include(tp => tp.Type)
+                                .Where(t => p.PokemonId == t.PokemonId && !t.Subtype)
+                                .Select(t => t.Type).FirstOrDefault(), 
+                              Type2 = _context.TypePokemon
+                                .Include(tp => tp.Type)
+                                .Where(t => p.PokemonId == t.PokemonId && t.Subtype)
+                                .Select(t => t.Type).FirstOrDefault(),
                               Ability = p.Ability,
                               SecondaryAbility = p.SecondaryAbility,
                               HiddenAbility = p.HiddenAbility,
@@ -47,13 +53,16 @@ namespace PokeWikiAPI.Controllers
                               SpAttack = p.SpAttack,
                               SpDefense = p.SpDefense,
                               Speed = p.Speed,
-                              Prevolution = _context.Pokemon.Where(t => t.PokemonId == p.Prevolution).Select(t => t).FirstOrDefault(),
-                              Evolution = _context.Pokemon.Where(t=> t.PokemonId == p.Evolution).Select(t => t).FirstOrDefault(),
+                              Prevolution = _context.Pokemon
+                                .Where(t => t.PokemonId == p.Prevolution)
+                                .Select(t => t).FirstOrDefault(),
+                              Evolution = _context.Pokemon
+                                .Where(t=> t.PokemonId == p.Evolution)
+                                .Select(t => t).FirstOrDefault(),
                               EvolutionRequirements = p.EvolutionRequirements
-                          };
+                          });
 
-            return Ok(Pokemon);
-            // return await _context.Pokemon.ToListAsync();
+            return await PokemonQuery.ToListAsync();
         }
 
         // GET: api/Pokemon/5
