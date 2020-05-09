@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using PokeWikiAPI;
+using PokeWikiAPI.Controllers.BO;
 using PokeWikiAPI.Models;
 using PokeWikiAPI.Models.DTO;
 
@@ -27,40 +28,8 @@ namespace PokeWikiAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PokemonDTO>>> GetPokemon()
         {
-            var PokemonQuery = _context.Pokemon.OrderBy(p => p.NumPokedex)
-                          .Select(p => new PokemonDTO
-                          {
-                              NumPokedex = p.NumPokedex,
-                              Name = p.Name,
-                              Description = p.Description,
-                              Type1 = _context.TypePokemon
-                                .Include(tp => tp.Type)
-                                .Where(t => p.PokemonId == t.PokemonId && !t.Subtype)
-                                .Select(t => t.Type).FirstOrDefault(), 
-                              Type2 = _context.TypePokemon
-                                .Include(tp => tp.Type)
-                                .Where(t => p.PokemonId == t.PokemonId && t.Subtype)
-                                .Select(t => t.Type).FirstOrDefault(),
-                              Ability = p.Ability,
-                              SecondaryAbility = p.SecondaryAbility,
-                              HiddenAbility = p.HiddenAbility,
-                              Image = p.Image,
-                              Weight = p.Weight,
-                              Height = p.Height,
-                              PS = p.PS,
-                              Attack = p.Attack,
-                              Defense = p.Defense,
-                              SpAttack = p.SpAttack,
-                              SpDefense = p.SpDefense,
-                              Speed = p.Speed,
-                              Prevolution = _context.Pokemon
-                                .Where(t => t.PokemonId == p.Prevolution)
-                                .Select(t => t).FirstOrDefault(),
-                              Evolution = _context.Pokemon
-                                .Where(t=> t.PokemonId == p.Evolution)
-                                .Select(t => t).FirstOrDefault(),
-                              EvolutionRequirements = p.EvolutionRequirements
-                          });
+            PokemonBO pokemonBO = new PokemonBO(_context);
+            IQueryable<PokemonDTO> PokemonQuery = pokemonBO.getPokemonList();
 
             return await PokemonQuery.ToListAsync();
         }
