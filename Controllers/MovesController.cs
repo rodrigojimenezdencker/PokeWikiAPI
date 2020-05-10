@@ -11,11 +11,11 @@ namespace PokeWikiAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MoveController : ControllerBase
+    public class MovesController : ControllerBase
     {
         private readonly Context _context;
 
-        public MoveController(Context context)
+        public MovesController(Context context)
         {
             _context = context;
         }
