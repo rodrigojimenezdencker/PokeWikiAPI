@@ -1,4 +1,6 @@
-﻿namespace PokeWikiAPI.Models.DTO
+﻿using System.Collections.Generic;
+
+namespace PokeWikiAPI.Models.DTO
 {
     public class TypesDTO
     {

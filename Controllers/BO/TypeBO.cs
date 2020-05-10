@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PokeWikiAPI.Models;
 using PokeWikiAPI.Models.DTO;
+using System.Linq;
 
 namespace PokeWikiAPI.Controllers.BO
 {
