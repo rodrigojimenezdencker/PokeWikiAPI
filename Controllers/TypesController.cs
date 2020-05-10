@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PokeWikiAPI.Controllers.BO;
 using PokeWikiAPI.Models;
+using PokeWikiAPI.Models.DTO;
 
 namespace PokeWikiAPI.Controllers
 {
@@ -22,9 +22,12 @@ namespace PokeWikiAPI.Controllers
 
         // GET: api/Types
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Types>>> GetTypes()
+        public async Task<ActionResult<IEnumerable<TypesDTO>>> GetTypes()
         {
-            return await _context.Type.ToListAsync();
+            TypeBO typeBO = new TypeBO(_context);
+            IQueryable<TypesDTO> TypesQuery = typeBO.getTypesList();
+
+            return await TypesQuery.ToListAsync();
         }
 
         // GET: api/Types/5

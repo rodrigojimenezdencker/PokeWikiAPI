@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using PokeWikiAPI.Controllers.BO;
 using PokeWikiAPI.Models;
+using PokeWikiAPI.Models.DTO;
 
 namespace PokeWikiAPI.Controllers
 {
@@ -22,9 +22,12 @@ namespace PokeWikiAPI.Controllers
 
         // GET: api/Move
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Move>>> GetMove()
+        public async Task<ActionResult<IEnumerable<MoveDTO>>> GetMove()
         {
-            return await _context.Move.ToListAsync();
+            MoveBO moveBO = new MoveBO(_context);
+            IQueryable<MoveDTO> MoveQuery = moveBO.getMoveList();
+
+            return await MoveQuery.ToListAsync();
         }
 
         // GET: api/Move/5
