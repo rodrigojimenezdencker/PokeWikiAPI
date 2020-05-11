@@ -2,6 +2,7 @@
 using PokeWikiAPI.Models;
 using PokeWikiAPI.Models.DTO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace PokeWikiAPI.Controllers.BO
 {
@@ -13,11 +14,10 @@ namespace PokeWikiAPI.Controllers.BO
         {
             _context = context;
         }
-
-        public IQueryable<MoveDTO> getMoveList()
+        public async Task<MoveDTO> getSingleMove(int id)
         {
-            IQueryable<MoveDTO> MoveQuery = _context.Move
-                .Include(m => m.Type)
+            return await _context.Move
+                .Where(m => m.MoveId == id)
                 .Select(m => new MoveDTO
                 {
                     Name = m.Name,
@@ -29,15 +29,13 @@ namespace PokeWikiAPI.Controllers.BO
                     Pokemons = _context.MovePokemon
                        .Include(mp => mp.Pokemon)
                        .Where(mp => mp.Pokemon.PokemonId == mp.PokemonId && mp.MoveId == m.MoveId)
-                       .Select(tp => new PokemonListDTO
+                       .Select(mp => new PokemonListDTO
                        {
-                           PokemonId = tp.PokemonId,
-                           NumPokedex = tp.Pokemon.NumPokedex,
-                           Name = tp.Pokemon.Name,
-                           Image = tp.Pokemon.Image
+                           NumPokedex = mp.Pokemon.NumPokedex,
+                           Name = mp.Pokemon.Name,
+                           Image = mp.Pokemon.Image
                        }).ToList()
-                });
-            return MoveQuery;
+                }).FirstOrDefaultAsync();
         }
     }
 }

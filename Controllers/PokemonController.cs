@@ -14,27 +14,27 @@ namespace PokeWikiAPI.Controllers
     public class PokemonController : ControllerBase
     {
         private readonly Context _context;
+        private readonly PokemonBO pokemonBO;
 
         public PokemonController(Context context)
         {
             _context = context;
+            pokemonBO = new PokemonBO(_context);
         }
 
         // GET: api/Pokemon
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PokemonDTO>>> GetPokemon()
+        public async Task<ActionResult<IEnumerable<PokemonListDTO>>> GetPokemon()
         {
-            PokemonBO pokemonBO = new PokemonBO(_context);
-            IQueryable<PokemonDTO> PokemonQuery = pokemonBO.getPokemonList();
-
+            IQueryable<PokemonListDTO> PokemonQuery = pokemonBO.getPokemonList();
             return await PokemonQuery.ToListAsync();
         }
 
         // GET: api/Pokemon/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Pokemon>> GetPokemon(int id)
+        public async Task<ActionResult<PokemonDTO>> GetPokemon(int id)
         {
-            var pokemon = await _context.Pokemon.FindAsync(id);
+            PokemonDTO pokemon = await pokemonBO.getSinglePokemon(id);
 
             if (pokemon == null)
             {

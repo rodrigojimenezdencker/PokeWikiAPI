@@ -14,27 +14,26 @@ namespace PokeWikiAPI.Controllers
     public class MovesController : ControllerBase
     {
         private readonly Context _context;
+        private readonly MoveBO moveBO;
 
         public MovesController(Context context)
         {
             _context = context;
+            moveBO = new MoveBO(context);
         }
 
         // GET: api/Move
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MoveDTO>>> GetMove()
+        public async Task<ActionResult<IEnumerable<Move>>> GetMove()
         {
-            MoveBO moveBO = new MoveBO(_context);
-            IQueryable<MoveDTO> MoveQuery = moveBO.getMoveList();
-
-            return await MoveQuery.ToListAsync();
+            return await _context.Move.ToListAsync();
         }
 
         // GET: api/Move/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Move>> GetMove(int id)
+        public async Task<ActionResult<MoveDTO>> GetMove(int id)
         {
-            var move = await _context.Move.FindAsync(id);
+            MoveDTO move = await moveBO.getSingleMove(id);
 
             if (move == null)
             {

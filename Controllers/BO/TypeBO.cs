@@ -2,6 +2,7 @@
 using PokeWikiAPI.Models;
 using PokeWikiAPI.Models.DTO;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace PokeWikiAPI.Controllers.BO
 {
@@ -13,9 +14,10 @@ namespace PokeWikiAPI.Controllers.BO
         {
             _context = context;
         }
-        public IQueryable<TypesDTO> getTypesList()
+        public async Task<TypesDTO> getSingleType(int id)
         {
-            IQueryable<TypesDTO> TypesQuery = _context.Type
+            return await _context.Type
+                .Where(t => t.TypeId == id)
                 .Select(t => new TypesDTO
                 {
                     Name = t.Name,
@@ -27,14 +29,11 @@ namespace PokeWikiAPI.Controllers.BO
                         .Where(tp => tp.Pokemon.PokemonId == tp.PokemonId && tp.TypeId == t.TypeId)
                         .Select(tp => new PokemonListDTO
                         {
-                            PokemonId = tp.PokemonId,
                             NumPokedex = tp.Pokemon.NumPokedex,
                             Name = tp.Pokemon.Name,
                             Image = tp.Pokemon.Image
                         }).ToList()
-                });
-
-            return TypesQuery;
+                }).FirstOrDefaultAsync();
         }
     }
 }

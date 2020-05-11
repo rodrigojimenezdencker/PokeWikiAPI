@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace PokeWikiAPI.Models.DTO
+﻿namespace PokeWikiAPI.Models.DTO
 {
     public class PokemonListDTO
     {
-        public int PokemonId { get; set; }
         public int NumPokedex { get; set; }
         public string Name { get; set; }
         public string Image { get; set; }
+        public Types Type1 { get; set; }
+        public Types Type2 { get; set; }
     }
 }

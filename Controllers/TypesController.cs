@@ -14,34 +14,33 @@ namespace PokeWikiAPI.Controllers
     public class TypesController : ControllerBase
     {
         private readonly Context _context;
+        private readonly TypeBO typeBO;
 
         public TypesController(Context context)
         {
             _context = context;
+            typeBO = new TypeBO(context);
         }
 
         // GET: api/Types
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TypesDTO>>> GetTypes()
+        public async Task<ActionResult<IEnumerable<Types>>> GetTypes()
         {
-            TypeBO typeBO = new TypeBO(_context);
-            IQueryable<TypesDTO> TypesQuery = typeBO.getTypesList();
-
-            return await TypesQuery.ToListAsync();
+            return await _context.Type.ToListAsync();
         }
 
         // GET: api/Types/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Types>> GetTypes(int id)
+        public async Task<ActionResult<TypesDTO>> GetTypes(int id)
         {
-            var types = await _context.Type.FindAsync(id);
+            TypesDTO type = await typeBO.getSingleType(id);
 
-            if (types == null)
+            if (type == null)
             {
                 return NotFound();
             }
 
-            return types;
+            return type;
         }
 
         // PUT: api/Types/5
