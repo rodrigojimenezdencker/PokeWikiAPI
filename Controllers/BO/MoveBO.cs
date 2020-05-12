@@ -25,7 +25,7 @@ namespace PokeWikiAPI.Controllers.BO
                     Power = m.Power,
                     Accuracy = m.Accuracy,
                     Quantity = m.Quantity,
-                    Type = m.Type.Name,
+                    Type = m.Type,
                     Pokemons = _context.MovePokemon
                        .Include(mp => mp.Pokemon)
                        .Where(mp => mp.Pokemon.PokemonId == mp.PokemonId && mp.MoveId == m.MoveId)

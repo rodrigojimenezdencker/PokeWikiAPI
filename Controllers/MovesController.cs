@@ -26,7 +26,9 @@ namespace PokeWikiAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Move>>> GetMove()
         {
-            return await _context.Move.ToListAsync();
+            return await _context.Move
+                .Include(m => m.Type)
+                .ToListAsync();
         }
 
         // GET: api/Move/5

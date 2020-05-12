@@ -9,7 +9,7 @@ namespace PokeWikiAPI.Models.DTO
         public int? Power { get; set; }
         public int? Accuracy { get; set; }
         public int Quantity { get; set; }
-        public string Type { get; set; }
+        public Types Type { get; set; }
         public List<PokemonListDTO> Pokemons { get; set; }
     }
 }
