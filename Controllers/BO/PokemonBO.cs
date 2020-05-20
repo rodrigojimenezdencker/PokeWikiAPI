@@ -80,7 +80,19 @@ namespace PokeWikiAPI.Controllers.BO
                         Image = pk.Image,
                         EvolutionRequirements = pk.EvolutionRequirements
                     }).FirstOrDefault(),
-                    EvolutionRequirements = p.EvolutionRequirements
+                    EvolutionRequirements = p.EvolutionRequirements,
+                    Moves = _context.MovePokemon
+                    .Include(mp => mp.Move)
+                    .Where(mp => mp.PokemonId == p.PokemonId)
+                    .Select(mp => new PokemonMovesDTO
+                    {
+                        MoveId = mp.Move.MoveId,
+                        Name = mp.Move.Name,
+                        TypeId = _context.Type.Where(t => mp.Move.TypeId == t.TypeId).Select(t => t.TypeId).FirstOrDefault(),
+                        TypeName = _context.Type.Where(t => mp.Move.TypeId == t.TypeId).Select(t => t.Name).FirstOrDefault(),
+                        TypeImage = _context.Type.Where(t => mp.Move.TypeId == t.TypeId).Select(t => t.Image).FirstOrDefault(),
+                        Level = mp.Level
+                    }).ToList()
                 }).FirstAsync();
         }
     }

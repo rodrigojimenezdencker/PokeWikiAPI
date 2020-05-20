@@ -1,4 +1,6 @@
-﻿namespace PokeWikiAPI.Models.DTO
+﻿using System.Collections.Generic;
+
+namespace PokeWikiAPI.Models.DTO
 {
     public class PokemonDTO
     {
@@ -22,5 +24,6 @@
         public PokemonEvolutionsDTO Prevolution { get; set; }
         public PokemonEvolutionsDTO Evolution { get; set; }
         public string EvolutionRequirements { get; set; }
+        public ICollection<PokemonMovesDTO> Moves { get; set; }
     }
 }
