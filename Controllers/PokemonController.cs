@@ -31,10 +31,24 @@ namespace PokeWikiAPI.Controllers
         }
 
         // GET: api/Pokemon/5
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult<PokemonDTO>> GetPokemon(int id)
         {
-            PokemonDTO pokemon = await pokemonBO.getSinglePokemon(id);
+            PokemonDTO pokemon = await pokemonBO.getSinglePokemonById(id);
+
+            if (pokemon == null)
+            {
+                return NotFound();
+            }
+
+            return pokemon;
+        }
+
+        // GET: api/Pokemon/Pikachu
+        [HttpGet("{name}")]
+        public async Task<ActionResult<PokemonDTO>> GetPokemon(string name)
+        {
+            PokemonDTO pokemon = await pokemonBO.getSinglePokemonByName(name);
 
             if (pokemon == null)
             {

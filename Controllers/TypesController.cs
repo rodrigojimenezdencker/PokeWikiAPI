@@ -30,10 +30,24 @@ namespace PokeWikiAPI.Controllers
         }
 
         // GET: api/Types/5
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult<TypesDTO>> GetTypes(int id)
         {
-            TypesDTO type = await typeBO.getSingleType(id);
+            TypesDTO type = await typeBO.getSingleTypeById(id);
+
+            if (type == null)
+            {
+                return NotFound();
+            }
+
+            return type;
+        }
+
+        // GET: api/Types/agua
+        [HttpGet("{name}")]
+        public async Task<ActionResult<TypesDTO>> GetTypes(string name)
+        {
+            TypesDTO type = await typeBO.getSingleTypeByName(name);
 
             if (type == null)
             {

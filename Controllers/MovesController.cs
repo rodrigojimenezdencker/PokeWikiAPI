@@ -32,10 +32,24 @@ namespace PokeWikiAPI.Controllers
         }
 
         // GET: api/Move/5
-        [HttpGet("{id}")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult<MoveDTO>> GetMove(int id)
         {
-            MoveDTO move = await moveBO.getSingleMove(id);
+            MoveDTO move = await moveBO.getSingleMoveById(id);
+
+            if (move == null)
+            {
+                return NotFound();
+            }
+
+            return move;
+        }
+
+        // GET: api/Move/Burbuja
+        [HttpGet("{name}")]
+        public async Task<ActionResult<MoveDTO>> GetMove(string name)
+        {
+            MoveDTO move = await moveBO.getSingleMoveByName(name);
 
             if (move == null)
             {
