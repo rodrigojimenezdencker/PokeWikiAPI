@@ -20,6 +20,7 @@ namespace PokeWikiAPI.Controllers.BO
                 .Where(t => t.TypeId == id)
                 .Select(t => new TypesDTO
                 {
+                    TypeId = t.TypeId,
                     Name = t.Name,
                     Color = t.Color,
                     Image = t.Image,
@@ -41,6 +42,7 @@ namespace PokeWikiAPI.Controllers.BO
                 .Where(t => t.Name.ToLower() == name.ToLower())
                 .Select(t => new TypesDTO
                 {
+                    TypeId = t.TypeId,
                     Name = t.Name,
                     Color = t.Color,
                     Image = t.Image,

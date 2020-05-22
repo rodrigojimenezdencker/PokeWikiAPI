@@ -4,6 +4,7 @@ namespace PokeWikiAPI.Models.DTO
 {
     public class TypesDTO
     {
+        public int TypeId { get; set; }
         public string Name { get; set; }
         public string Color { get; set; }
         public string Image { get; set; }
