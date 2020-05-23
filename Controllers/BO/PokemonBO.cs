@@ -25,11 +25,11 @@ namespace PokeWikiAPI.Controllers.BO
                     Image = p.Image,
                     Type1 = _context.TypePokemon
                         .Include(tp => tp.Type)
-                        .Where(tp => tp.PokemonId == p.PokemonId && tp.TypeId == tp.Type.TypeId && !tp.Subtype)
+                        .Where(tp => tp.PokemonId == p.NumPokedex && tp.TypeId == tp.Type.TypeId && !tp.Subtype)
                         .Select(tp => tp.Type).FirstOrDefault(),
                     Type2 = _context.TypePokemon
                         .Include(tp => tp.Type)
-                        .Where(tp => tp.PokemonId == p.PokemonId && tp.TypeId == tp.Type.TypeId && tp.Subtype)
+                        .Where(tp => tp.PokemonId == p.NumPokedex && tp.TypeId == tp.Type.TypeId && tp.Subtype)
                         .Select(tp => tp.Type).FirstOrDefault()
                 });
         }
@@ -44,11 +44,11 @@ namespace PokeWikiAPI.Controllers.BO
                     Description = p.Description,
                     Type1 = _context.TypePokemon
                     .Include(tp => tp.Type)
-                    .Where(t => p.PokemonId == t.PokemonId && !t.Subtype)
+                    .Where(t => p.NumPokedex == t.PokemonId && !t.Subtype)
                     .Select(t => t.Type).FirstOrDefault(),
                     Type2 = _context.TypePokemon
                     .Include(tp => tp.Type)
-                    .Where(t => p.PokemonId == t.PokemonId && t.Subtype)
+                    .Where(t => p.NumPokedex == t.PokemonId && t.Subtype)
                     .Select(t => t.Type).FirstOrDefault(),
                     Ability = p.Ability,
                     SecondaryAbility = p.SecondaryAbility,
@@ -107,11 +107,11 @@ namespace PokeWikiAPI.Controllers.BO
                     Description = p.Description,
                     Type1 = _context.TypePokemon
                     .Include(tp => tp.Type)
-                    .Where(t => p.PokemonId == t.PokemonId && !t.Subtype)
+                    .Where(t => p.NumPokedex == t.PokemonId && !t.Subtype)
                     .Select(t => t.Type).FirstOrDefault(),
                     Type2 = _context.TypePokemon
                     .Include(tp => tp.Type)
-                    .Where(t => p.PokemonId == t.PokemonId && t.Subtype)
+                    .Where(t => p.NumPokedex == t.PokemonId && t.Subtype)
                     .Select(t => t.Type).FirstOrDefault(),
                     Ability = p.Ability,
                     SecondaryAbility = p.SecondaryAbility,
