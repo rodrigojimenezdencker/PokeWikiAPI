@@ -26,7 +26,7 @@ namespace PokeWikiAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Types>>> GetTypes()
         {
-            return await _context.Type.ToListAsync();
+            return await _context.Type.OrderBy(t => t.TypeId).ToListAsync();
         }
 
         // GET: api/Types/5

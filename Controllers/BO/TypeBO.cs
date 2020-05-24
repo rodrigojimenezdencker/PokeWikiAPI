@@ -16,7 +16,7 @@ namespace PokeWikiAPI.Controllers.BO
         }
         public async Task<TypesDTO> getSingleTypeById(int id)
         {
-            return await _context.Type
+            return await _context.Type.OrderBy(t => t.TypeId)
                 .Where(t => t.TypeId == id)
                 .Select(t => new TypesDTO
                 {

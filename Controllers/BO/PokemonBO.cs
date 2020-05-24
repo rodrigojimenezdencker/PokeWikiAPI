@@ -20,6 +20,7 @@ namespace PokeWikiAPI.Controllers.BO
                 .OrderBy(p => p.NumPokedex)
                 .Select(p => new PokemonListDTO
                 {
+                    PokemonId = p.PokemonId,
                     NumPokedex = p.NumPokedex,
                     Name = p.Name,
                     Image = p.Image,
@@ -39,6 +40,7 @@ namespace PokeWikiAPI.Controllers.BO
                 .Where(p => p.NumPokedex == id)
                 .Select(p => new PokemonDTO
                 {
+                    PokemonId = p.PokemonId,
                     NumPokedex = p.NumPokedex,
                     Name = p.Name,
                     Description = p.Description,
@@ -102,6 +104,7 @@ namespace PokeWikiAPI.Controllers.BO
                 .Where(p => p.Name.ToLower() == name.ToLower())
                 .Select(p => new PokemonDTO
                 {
+                    PokemonId = p.PokemonId,
                     NumPokedex = p.NumPokedex,
                     Name = p.Name,
                     Description = p.Description,

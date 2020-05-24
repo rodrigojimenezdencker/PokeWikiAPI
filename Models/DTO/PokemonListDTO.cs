@@ -2,6 +2,7 @@
 {
     public class PokemonListDTO
     {
+        public int PokemonId { get; set; }
         public int NumPokedex { get; set; }
         public string Name { get; set; }
         public string Image { get; set; }

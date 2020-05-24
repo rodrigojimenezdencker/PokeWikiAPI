@@ -4,6 +4,7 @@ namespace PokeWikiAPI.Models.DTO
 {
     public class PokemonDTO
     {
+        public int PokemonId { get; set; }
         public int NumPokedex { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
