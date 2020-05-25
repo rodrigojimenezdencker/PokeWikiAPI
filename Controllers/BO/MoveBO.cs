@@ -22,6 +22,7 @@ namespace PokeWikiAPI.Controllers.BO
                 .Where(m => m.MoveId == id)
                 .Select(m => new MoveDTO
                 {
+                    MoveId =m.MoveId,
                     Name = m.Name,
                     Description = m.Description,
                     Power = m.Power,
@@ -46,6 +47,7 @@ namespace PokeWikiAPI.Controllers.BO
                 .Where(m => m.Name.ToLower().Replace(" ", "_") == name.ToLower())
                 .Select(m => new MoveDTO
                 {
+                    MoveId = m.MoveId,
                     Name = m.Name,
                     Description = m.Description,
                     Power = m.Power,
