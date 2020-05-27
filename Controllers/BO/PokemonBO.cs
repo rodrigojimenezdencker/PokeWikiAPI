@@ -71,7 +71,16 @@ namespace PokeWikiAPI.Controllers.BO
                         NumPokedex = pk.NumPokedex,
                         Name = pk.Name,
                         Image = pk.Image,
-                        EvolutionRequirements = pk.EvolutionRequirements
+                        EvolutionRequirements = pk.EvolutionRequirements,
+                        Prevolution = _context.Pokemon
+                            .Where(pk2 => pk2.PokemonId == pk.Prevolution)
+                            .Select(pk2 => new PokemonEvolutionsDTO
+                            {
+                                NumPokedex = pk2.NumPokedex,
+                                Name = pk2.Name,
+                                Image = pk2.Image,
+                                EvolutionRequirements = pk2.EvolutionRequirements,
+                            }).FirstOrDefault()
                     }).FirstOrDefault(),
                     Evolution = _context.Pokemon
                     .Where(pk => pk.PokemonId == p.Evolution)
@@ -80,7 +89,16 @@ namespace PokeWikiAPI.Controllers.BO
                         NumPokedex = pk.NumPokedex,
                         Name = pk.Name,
                         Image = pk.Image,
-                        EvolutionRequirements = pk.EvolutionRequirements
+                        EvolutionRequirements = pk.EvolutionRequirements,
+                        Evolution = _context.Pokemon
+                        .Where(x => x.PokemonId == pk.Evolution)
+                        .Select(y => new PokemonEvolutionsDTO
+                        {
+                            NumPokedex = y.NumPokedex,
+                            Name = y.Name,
+                            Image = y.Image,
+                            EvolutionRequirements = y.EvolutionRequirements,
+                        }).FirstOrDefault()
                     }).FirstOrDefault(),
                     EvolutionRequirements = p.EvolutionRequirements,
                     Moves = _context.MovePokemon
@@ -135,7 +153,16 @@ namespace PokeWikiAPI.Controllers.BO
                         NumPokedex = pk.NumPokedex,
                         Name = pk.Name,
                         Image = pk.Image,
-                        EvolutionRequirements = pk.EvolutionRequirements
+                        EvolutionRequirements = pk.EvolutionRequirements,
+                        Prevolution = _context.Pokemon
+                            .Where(pk2 => pk2.PokemonId == pk.Prevolution)
+                            .Select(pk2 => new PokemonEvolutionsDTO
+                            {
+                                NumPokedex = pk2.NumPokedex,
+                                Name = pk2.Name,
+                                Image = pk2.Image,
+                                EvolutionRequirements = pk2.EvolutionRequirements,
+                            }).FirstOrDefault()
                     }).FirstOrDefault(),
                     Evolution = _context.Pokemon
                     .Where(pk => pk.PokemonId == p.Evolution)
@@ -144,7 +171,16 @@ namespace PokeWikiAPI.Controllers.BO
                         NumPokedex = pk.NumPokedex,
                         Name = pk.Name,
                         Image = pk.Image,
-                        EvolutionRequirements = pk.EvolutionRequirements
+                        EvolutionRequirements = pk.EvolutionRequirements,
+                        Evolution = _context.Pokemon
+                        .Where(x => x.PokemonId == pk.Evolution)
+                        .Select(y => new PokemonEvolutionsDTO
+                        {
+                            NumPokedex = y.NumPokedex,
+                            Name = y.Name,
+                            Image = y.Image,
+                            EvolutionRequirements = y.EvolutionRequirements,
+                        }).FirstOrDefault()
                     }).FirstOrDefault(),
                     EvolutionRequirements = p.EvolutionRequirements,
                     Moves = _context.MovePokemon
