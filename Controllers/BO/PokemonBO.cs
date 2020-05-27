@@ -156,7 +156,7 @@ namespace PokeWikiAPI.Controllers.BO
                         Name = mp.Move.Name,
                         TypeId = _context.Type.Where(t => mp.Move.TypeId == t.TypeId).Select(t => t.TypeId).FirstOrDefault(),
                         TypeName = _context.Type.Where(t => mp.Move.TypeId == t.TypeId).Select(t => t.Name).FirstOrDefault(),
-                        TypeImage = _context.Type.Where(t => mp.Move.TypeId == t.TypeId).Select(t => t.Image).FirstOrDefault(),
+                        TypeImage = _context.Type.Where(t => mp.Move.TypeId == t.TypeId).Select(t => t.SecondaryImage).FirstOrDefault(),
                         Level = mp.Level
                     }).ToList()
                 }).FirstAsync();
