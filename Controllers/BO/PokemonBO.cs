@@ -65,7 +65,7 @@ namespace PokeWikiAPI.Controllers.BO
                     SpDefense = p.SpDefense,
                     Speed = p.Speed,
                     Prevolution = _context.Pokemon
-                    .Where(pk => pk.PokemonId == p.Prevolution)
+                    .Where(pk => pk.NumPokedex == p.Prevolution)
                     .Select(pk => new PokemonEvolutionsDTO
                     {
                         NumPokedex = pk.NumPokedex,
@@ -83,7 +83,7 @@ namespace PokeWikiAPI.Controllers.BO
                             }).FirstOrDefault()
                     }).FirstOrDefault(),
                     Evolution = _context.Pokemon
-                    .Where(pk => pk.PokemonId == p.Evolution)
+                    .Where(pk => pk.NumPokedex == p.Evolution)
                     .Select(pk => new PokemonEvolutionsDTO
                     {
                         NumPokedex = pk.NumPokedex,
@@ -147,7 +147,7 @@ namespace PokeWikiAPI.Controllers.BO
                     SpDefense = p.SpDefense,
                     Speed = p.Speed,
                     Prevolution = _context.Pokemon
-                    .Where(pk => pk.PokemonId == p.Prevolution)
+                    .Where(pk => pk.NumPokedex == p.Prevolution)
                     .Select(pk => new PokemonEvolutionsDTO
                     {
                         NumPokedex = pk.NumPokedex,
@@ -165,7 +165,7 @@ namespace PokeWikiAPI.Controllers.BO
                             }).FirstOrDefault()
                     }).FirstOrDefault(),
                     Evolution = _context.Pokemon
-                    .Where(pk => pk.PokemonId == p.Evolution)
+                    .Where(pk => pk.NumPokedex == p.Evolution)
                     .Select(pk => new PokemonEvolutionsDTO
                     {
                         NumPokedex = pk.NumPokedex,
