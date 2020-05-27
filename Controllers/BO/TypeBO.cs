@@ -33,7 +33,17 @@ namespace PokeWikiAPI.Controllers.BO
                             NumPokedex = tp.Pokemon.NumPokedex,
                             Name = tp.Pokemon.Name,
                             Image = tp.Pokemon.Image
-                        }).ToList()
+                        }).ToList(),
+                    Moves = _context.Move
+                        .Where(tp => tp.TypeId == t.TypeId)
+                        .Select(tp => new MoveListDTO
+                        {
+                            MoveId = tp.MoveId,
+                            Name = tp.Name,
+                            Power = tp.Power,
+                            Accuracy = tp.Accuracy,
+                            Quantity = tp.Quantity
+                        }).ToList(),
                 }).FirstOrDefaultAsync();
         }
         public async Task<TypesDTO> getSingleTypeByName(string name)
@@ -55,7 +65,17 @@ namespace PokeWikiAPI.Controllers.BO
                             NumPokedex = tp.Pokemon.NumPokedex,
                             Name = tp.Pokemon.Name,
                             Image = tp.Pokemon.Image
-                        }).ToList()
+                        }).ToList(),
+                    Moves = _context.Move
+                        .Where(tp => tp.TypeId == t.TypeId)
+                        .Select(tp => new MoveListDTO
+                        {
+                            MoveId = tp.MoveId,
+                            Name = tp.Name,
+                            Power = tp.Power,
+                            Accuracy = tp.Accuracy,
+                            Quantity = tp.Quantity
+                        }).ToList(),
                 }).FirstOrDefaultAsync();
         }
     }

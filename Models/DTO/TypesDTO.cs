@@ -10,5 +10,6 @@ namespace PokeWikiAPI.Models.DTO
         public string Image { get; set; }
         public string SecondaryImage { get; set; }
         public List<PokemonListDTO> Pokemons { get; set; }
+        public List<MoveListDTO> Moves { get; set; }
     }
 }
