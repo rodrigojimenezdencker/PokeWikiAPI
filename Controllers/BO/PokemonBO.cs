@@ -73,7 +73,7 @@ namespace PokeWikiAPI.Controllers.BO
                         Image = pk.Image,
                         EvolutionRequirements = pk.EvolutionRequirements,
                         Prevolution = _context.Pokemon
-                            .Where(pk2 => pk2.PokemonId == pk.Prevolution)
+                            .Where(pk2 => pk2.NumPokedex == pk.Prevolution)
                             .Select(pk2 => new PokemonEvolutionsDTO
                             {
                                 NumPokedex = pk2.NumPokedex,
@@ -91,7 +91,7 @@ namespace PokeWikiAPI.Controllers.BO
                         Image = pk.Image,
                         EvolutionRequirements = pk.EvolutionRequirements,
                         Evolution = _context.Pokemon
-                        .Where(x => x.PokemonId == pk.Evolution)
+                        .Where(x => x.NumPokedex == pk.Evolution)
                         .Select(y => new PokemonEvolutionsDTO
                         {
                             NumPokedex = y.NumPokedex,
@@ -103,7 +103,7 @@ namespace PokeWikiAPI.Controllers.BO
                     EvolutionRequirements = p.EvolutionRequirements,
                     Moves = _context.MovePokemon
                     .Include(mp => mp.Move)
-                    .Where(mp => mp.PokemonId == p.PokemonId)
+                    .Where(mp => mp.NumPokedex == p.PokemonId)
                     .Select(mp => new PokemonMovesDTO
                     {
                         MoveId = mp.Move.MoveId,
