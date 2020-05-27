@@ -103,7 +103,7 @@ namespace PokeWikiAPI.Controllers.BO
                     EvolutionRequirements = p.EvolutionRequirements,
                     Moves = _context.MovePokemon
                     .Include(mp => mp.Move)
-                    .Where(mp => mp.NumPokedex == p.PokemonId)
+                    .Where(mp => mp.PokemonId == p.PokemonId)
                     .Select(mp => new PokemonMovesDTO
                     {
                         MoveId = mp.Move.MoveId,
